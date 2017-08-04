@@ -65,6 +65,7 @@ public class Car implements Comparable<Car> {
 		if(otherCar == null) {
 			throw new NullPointerException("Attempted to compare " + this + " to null");
 		} else if (!this.getClass().equals(otherCar.getClass())) {
+            throw new ClassCastException("Class Cast Exception");
         } else if (this.price < otherCar.price) {
             return -1;
         } else if (this.price > otherCar.price) {
@@ -85,6 +86,67 @@ public class Car implements Comparable<Car> {
 			System.out.println("{" + car.getName() + "} - {" + car.getPrice() + "}");
 		}
 		System.out.println();
+	}
+	
+	/**
+	 * Method to display each car and break down its SIPP into its meanings.
+	 * @param cars
+	 */
+	public void printOutCarSpecs(ArrayList<Car> cars) {
+		String carType, doors, transmission, fuelAirCon; 
+		
+		for (Car car : cars) {
+			String sipp = car.getSipp();
+	        String[] parts = sipp.split("");
+	        
+	        // find the type of car by the first letter of the SIPP.
+	        switch(parts[0]) {
+		        case "M" : carType = "Mini"; break;
+		        case "E" : carType = "Economy"; break;
+		        case "C" : carType = "Compact"; break;
+		        case "I" : carType = "Intermediate"; break;
+		        case "S" : carType = "Standard"; break;
+		        case "F" : carType = "Full Size"; break;
+		        case "P" : carType = "Premium"; break;
+		        case "L" : carType = "Luxury"; break;
+		        case "X" : carType = "Special"; break;
+		        default : carType = "Unknown";
+	        }
+	        
+	        // finds the car type and number of doors by the second letter of the SIPP
+	        switch(parts[1]) {
+		        case "B" : doors = "2 Doors"; break;
+		        case "C" : doors = "4 Doors"; break;
+		        case "D" : doors = "5 Doors"; break;
+		        case "W" : doors = "Estate"; break;
+		        case "T" : doors = "Convertible"; break;
+		        case "F" : doors = "SUV"; break;
+		        case "P" : doors = "Pick up"; break;
+		        case "V" : doors = "Passenger Van"; break;
+		        default : doors = "Unknown";
+	        }
+	        
+	        // finds the car transmission type by the third letter of the SIPP
+	        switch(parts[2]) {
+		        case "M" : transmission = "Manual"; break;
+		        case "A" : transmission = "Automatic"; break;
+		        default : transmission = "Unknown";
+	        }
+	        
+	        // find the fuel and air con type by the forth letter of the SIPP
+	        switch(parts[3]) {
+		        case "N" : fuelAirCon = "Petrol/no AC"; break;
+		        case "R" : fuelAirCon = "Petrol/AC"; break;
+		        default : fuelAirCon = "Unknown/Unknown";
+	        }
+	        String[] arrFuelAir = fuelAirCon.split("/");
+	        String fuelType = arrFuelAir[0];
+	        String airCon = arrFuelAir[1];
+	        
+	        System.out.println("{" + car.getName() + "} - {" + car.getSipp() + "} - {" 
+	        + carType + "} - {" + doors + "} - {" + transmission + "} - {" + fuelType + "} - {" + airCon + "}" );
+	        
+		}
 	}
 
 }

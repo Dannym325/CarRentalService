@@ -69,7 +69,7 @@ public class JSONFileReader {
         
         cars = reader.readFileIntoCarObjects();
         car.sortPriceAcending(cars);
-
+        car.printOutCarSpecs(cars);
         
 
     }
