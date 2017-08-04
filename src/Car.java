@@ -100,18 +100,7 @@ public class Car implements Comparable<Car> {
 	        String[] parts = sipp.split("");
 	        
 	        // find the type of car by the first letter of the SIPP.
-	        switch(parts[0]) {
-		        case "M" : carType = "Mini"; break;
-		        case "E" : carType = "Economy"; break;
-		        case "C" : carType = "Compact"; break;
-		        case "I" : carType = "Intermediate"; break;
-		        case "S" : carType = "Standard"; break;
-		        case "F" : carType = "Full Size"; break;
-		        case "P" : carType = "Premium"; break;
-		        case "L" : carType = "Luxury"; break;
-		        case "X" : carType = "Special"; break;
-		        default : carType = "Unknown";
-	        }
+	        carType = getCarType(parts[0]);
 	        
 	        // finds the car type and number of doors by the second letter of the SIPP
 	        switch(parts[1]) {
@@ -147,6 +136,54 @@ public class Car implements Comparable<Car> {
 	        + carType + "} - {" + doors + "} - {" + transmission + "} - {" + fuelType + "} - {" + airCon + "}" );
 	        
 		}
+	}
+	
+	public String getCarType(String type) {
+		String carType;
+        switch(type) {
+        case "M" : carType = "Mini"; break;
+        case "E" : carType = "Economy"; break;
+        case "C" : carType = "Compact"; break;
+        case "I" : carType = "Intermediate"; break;
+        case "S" : carType = "Standard"; break;
+        case "F" : carType = "Full Size"; break;
+        case "P" : carType = "Premium"; break;
+        case "L" : carType = "Luxury"; break;
+        case "X" : carType = "Special"; break;
+        default : carType = "Unknown";
+    }
+        return carType;
+	}
+	
+	/**
+	 * Finds the highest rated car per type and finds the supplier
+	 * @param cars
+	 */
+	public void sortBySupplierRating(ArrayList<Car> cars) {
+		
+		String[] carTypes = {"M", "E", "C", "I", "S", "F", "P", "L", "X"};
+		// loops around all the car types
+		for(int i = 0; i <= carTypes.length - 1; i++) {
+			Double highestRated = 0.0;
+			int highestRatedIndex = 0;
+			String sipp = null;
+			// loops around all the cars
+			for(int j = 0; j < cars.size(); j++) {
+				sipp = cars.get(j).getSipp();
+				String[] sippParts = sipp.split("");
+				// checking if the car type matches the car in the first loop
+				if(sippParts[0].equalsIgnoreCase(carTypes[i])) {
+					// checks if the current car has the highest rating
+					if(cars.get(j).getRating() > highestRated) {
+						highestRated = cars.get(j).getRating();
+						highestRatedIndex = j;
+					}
+				}	
+			}
+				System.out.println("{" + cars.get(highestRatedIndex).getName() + "} - {" + getCarType(carTypes[i]) + "} - {" + 
+						cars.get(highestRatedIndex).getSupplier() + "} - {" + cars.get(highestRatedIndex).getRating() + "}");
+		}
+		
 	}
 
 }
