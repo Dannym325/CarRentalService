@@ -103,31 +103,14 @@ public class Car implements Comparable<Car> {
 	        carType = getCarType(parts[0]);
 	        
 	        // finds the car type and number of doors by the second letter of the SIPP
-	        switch(parts[1]) {
-		        case "B" : doors = "2 Doors"; break;
-		        case "C" : doors = "4 Doors"; break;
-		        case "D" : doors = "5 Doors"; break;
-		        case "W" : doors = "Estate"; break;
-		        case "T" : doors = "Convertible"; break;
-		        case "F" : doors = "SUV"; break;
-		        case "P" : doors = "Pick up"; break;
-		        case "V" : doors = "Passenger Van"; break;
-		        default : doors = "Unknown";
-	        }
+	        doors = getCarDoorType(parts[1]);
 	        
 	        // finds the car transmission type by the third letter of the SIPP
-	        switch(parts[2]) {
-		        case "M" : transmission = "Manual"; break;
-		        case "A" : transmission = "Automatic"; break;
-		        default : transmission = "Unknown";
-	        }
+	        transmission = getCarTranmission(parts[2]);
 	        
 	        // find the fuel and air con type by the forth letter of the SIPP
-	        switch(parts[3]) {
-		        case "N" : fuelAirCon = "Petrol/no AC"; break;
-		        case "R" : fuelAirCon = "Petrol/AC"; break;
-		        default : fuelAirCon = "Unknown/Unknown";
-	        }
+	        fuelAirCon = getCarFuelAirCon(parts[3]);
+	        
 	        String[] arrFuelAir = fuelAirCon.split("/");
 	        String fuelType = arrFuelAir[0];
 	        String airCon = arrFuelAir[1];
@@ -138,20 +121,53 @@ public class Car implements Comparable<Car> {
 		}
 	}
 	
+	public String getCarDoorType(String doors) {
+        switch(doors) {
+	        case "B" : doors = "2 Doors"; break;
+	        case "C" : doors = "4 Doors"; break;
+	        case "D" : doors = "5 Doors"; break;
+	        case "W" : doors = "Estate"; break;
+	        case "T" : doors = "Convertible"; break;
+	        case "F" : doors = "SUV"; break;
+	        case "P" : doors = "Pick up"; break;
+	        case "V" : doors = "Passenger Van"; break;
+	        default : doors = "Unknown";
+        }
+        return doors;
+	}
+	
+	public String getCarTranmission(String transmission) {
+        switch(transmission) {
+	        case "M" : transmission = "Manual"; break;
+	        case "A" : transmission = "Automatic"; break;
+	        default : transmission = "Unknown";
+	    }
+		return transmission;
+	}
+	
+	public String getCarFuelAirCon(String fuelAirCon) {
+		switch(fuelAirCon) {
+	        case "N" : fuelAirCon = "Petrol/no AC"; break;
+	        case "R" : fuelAirCon = "Petrol/AC"; break;
+	        default : fuelAirCon = "Unknown/Unknown";
+	    }
+		return fuelAirCon;
+	}
+	
 	public String getCarType(String type) {
 		String carType;
         switch(type) {
-        case "M" : carType = "Mini"; break;
-        case "E" : carType = "Economy"; break;
-        case "C" : carType = "Compact"; break;
-        case "I" : carType = "Intermediate"; break;
-        case "S" : carType = "Standard"; break;
-        case "F" : carType = "Full Size"; break;
-        case "P" : carType = "Premium"; break;
-        case "L" : carType = "Luxury"; break;
-        case "X" : carType = "Special"; break;
-        default : carType = "Unknown";
-    }
+	        case "M" : carType = "Mini"; break;
+	        case "E" : carType = "Economy"; break;
+	        case "C" : carType = "Compact"; break;
+	        case "I" : carType = "Intermediate"; break;
+	        case "S" : carType = "Standard"; break;
+	        case "F" : carType = "Full Size"; break;
+	        case "P" : carType = "Premium"; break;
+	        case "L" : carType = "Luxury"; break;
+	        case "X" : carType = "Special"; break;
+	        default : carType = "Unknown";
+	    }
         return carType;
 	}
 	
@@ -184,6 +200,14 @@ public class Car implements Comparable<Car> {
 						cars.get(highestRatedIndex).getSupplier() + "} - {" + cars.get(highestRatedIndex).getRating() + "}");
 		}
 		
+	}
+	
+	public void getVehicleScore(ArrayList<Car> cars) {
+		int manual = 1, automatic = 5, airCon = 2, totalScore = 0;
+		
+		for(int i = 0; i < cars.size(); i++) {
+			
+		}
 	}
 
 }
