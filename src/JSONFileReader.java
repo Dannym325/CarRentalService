@@ -2,6 +2,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;
@@ -18,10 +19,11 @@ import org.json.simple.parser.ParseException;
  */
 
 public class JSONFileReader {
-
-	public static void main(String[] args) {
-
-        JSONParser parser = new JSONParser();
+	
+	public ArrayList<Car> readFileIntoCarObjects() {
+		JSONParser parser = new JSONParser();
+        ArrayList<Car> cars = new ArrayList<Car>();
+        Car[] carsArr;
 
         try {
             Object obj = parser.parse(new FileReader("src/vehicles.json"));
@@ -31,15 +33,22 @@ public class JSONFileReader {
 
             JSONObject search = (JSONObject) jsonObject.get("Search");
             JSONArray vehicleList = (JSONArray) search.get("VehicleList");
-
+            
+            
             for (int i = 0; i < vehicleList.size(); i++) {
+            	
                 JSONObject vehicle = (JSONObject) vehicleList.get(i);
-                System.out.println("*--------------*");
-                System.out.println("sipp: " + vehicle.get("sipp"));
-                System.out.println("name: " + vehicle.get("name"));
-                System.out.println("price: " + vehicle.get("price"));
-                System.out.println("supplier: " + vehicle.get("supplier"));
-                System.out.println("rating: " + vehicle.get("rating"));
+                	
+                String sipp = vehicle.get("sipp").toString();
+                String name = vehicle.get("name").toString();
+                Double price = Double.parseDouble(vehicle.get("price").toString());
+                String supplier = vehicle.get("supplier").toString();
+                Double rating = Double.parseDouble(vehicle.get("rating").toString());
+                
+            	Car car = new Car(sipp, name, price, supplier, rating); // create a new car object
+
+            	cars.add(car); // add the new object to the array
+            	
             }
 
         } catch (FileNotFoundException e) {
@@ -48,7 +57,21 @@ public class JSONFileReader {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
-        } 
+        }
+		return cars;	
+	}
+		
+	
+	public static void main(String[] args) {
+		Car car = new Car(null, null, null, null, null);
+		ArrayList<Car> cars;
+        JSONFileReader reader = new JSONFileReader();
+        
+        cars = reader.readFileIntoCarObjects();
+        car.sortPriceAcending(cars);
+
+        
+
     }
 
 }
