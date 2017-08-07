@@ -69,11 +69,13 @@ public class JSONFileReader {
         
         cars = reader.readFileIntoCarObjects();
         System.out.println("Print out the cars in price ascending order:");
-        car.sortPriceAcending(cars);
+        //car.sortPriceAcending(cars);
         System.out.println("Print out car specs from the sipp value:");
-        car.printOutCarSpecs(cars);
+        //car.printOutCarSpecs(cars);
         System.out.println("Prints out the highest rated supplier for each car type.");
-        car.sortBySupplierRating(cars);
+        //car.sortBySupplierRating(cars);
+        System.out.println("Print out vehicle supplier and spec scores:");
+        car.getVehicleScore(cars);
         
 
     }

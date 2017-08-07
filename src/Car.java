@@ -202,11 +202,29 @@ public class Car implements Comparable<Car> {
 		
 	}
 	
+	/**
+	 * Finds vehicle specs and adds up a score, and adds it with the supplier rating.
+	 * @param cars
+	 */
 	public void getVehicleScore(ArrayList<Car> cars) {
-		int manual = 1, automatic = 5, airCon = 2, totalScore = 0;
+		int manual = 1, automatic = 5, airCon = 2;
 		
 		for(int i = 0; i < cars.size(); i++) {
-			
+			int totalScore = 0;
+			String sipp = cars.get(i).getSipp();
+			String[] parts = sipp.split("");
+			if(parts[2].equalsIgnoreCase("M")) { // manual
+				totalScore = totalScore + manual;
+			} else if (parts[2].equalsIgnoreCase("A")) { // automatic
+				totalScore = totalScore + automatic;
+			}
+			if(parts[3].equalsIgnoreCase("R")) {
+				totalScore = totalScore + airCon;
+			}
+			Double supplierRating = cars.get(i).getRating();
+			Double vehicleScore = supplierRating + totalScore;
+			String name = cars.get(i).getName();
+			System.out.println("{" + name + "} - {" + totalScore + "} - {" + supplierRating + "} - {" + vehicleScore + "}");
 		}
 	}
 
